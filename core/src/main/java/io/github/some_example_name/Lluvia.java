@@ -39,8 +39,8 @@ public class Lluvia {
 	      Rectangle raindrop = new Rectangle();
 	      raindrop.x = MathUtils.random(0, 800-64);
 	      raindrop.y = 480;
-	      raindrop.width = 64;
-	      raindrop.height = 64;
+	      raindrop.width = 60;
+	      raindrop.height = 60;
 	      rainDropsPos.add(raindrop);
 	      // ver el tipo de gota
 	      if (MathUtils.random(1,10)<5)	    	  
@@ -83,15 +83,16 @@ public class Lluvia {
    }
    
    public void actualizarDibujoLluvia(SpriteBatch batch) { 
-	   
-	  for (int i=0; i < rainDropsPos.size; i++ ) {
-		  Rectangle raindrop = rainDropsPos.get(i);
-		  if(rainDropsType.get(i)==1) // gota dañina
-	         batch.draw(gotaMala, raindrop.x, raindrop.y); 
-		  else
-			 batch.draw(gotaBuena, raindrop.x, raindrop.y); 
-	   }
-   }
+    for (int i = 0; i < rainDropsPos.size; i++) {
+        Rectangle raindrop = rainDropsPos.get(i);
+        if (rainDropsType.get(i) == 1) // gota dañina
+            batch.draw(gotaMala, raindrop.x, raindrop.y, 60, 60); // Cambia 48, 48 al tamaño deseado
+        else
+			batch.draw(gotaBuena, raindrop.x, raindrop.y, raindrop.width, raindrop.height);
+
+    }
+}
+
    public void destruir() {
       dropSound.dispose();
       rainMusic.dispose();

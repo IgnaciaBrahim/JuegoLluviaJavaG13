@@ -16,15 +16,6 @@ public class ControladorJuego {
         profesoresEnJuego.add(profesor);
     }
 
-    public void recolectarProfesor(Profesor profesor, Jugador jugador) {
-        profesor.aplicarEfecto(jugador);
-        profesoresEnJuego.remove(profesor);
-
-        if (profesor instanceof ProfesorVillano) {
-            activarTormentaCubillos();
-        }
-    }
-
     public void activarTormentaCubillos() {
         System.out.println("¡Tormenta de Cubillos activada!");
 
@@ -45,6 +36,15 @@ public class ControladorJuego {
         };
 
         timer.schedule(tareaTormenta, 0, 500);
+    }
+
+    public void recolectarProfesor(Profesor profesor, Jugador jugador) {
+        profesor.aplicarEfecto(jugador, this);
+        profesoresEnJuego.remove(profesor);
+
+        if (profesor instanceof ProfesorVillano) {
+            activarTormentaCubillos();
+        }
     }
 }
 

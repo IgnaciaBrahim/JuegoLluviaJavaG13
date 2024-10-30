@@ -1,5 +1,4 @@
 package io.github.some_example_name;
-// ESTO ES SOLO UNA IDEA, CORREGIR OBVIO
 public class Jugador {
     private int puntaje;
     private int vida;
@@ -18,7 +17,7 @@ public class Jugador {
     }
 
     public void reducirPuntaje(int puntos) {
-        this.puntaje = Math.max(0, this.puntaje - puntos);  
+        this.puntaje = Math.max(0, this.puntaje - puntos);
     }
 
     public int getVida() {
@@ -26,19 +25,17 @@ public class Jugador {
     }
 
     public void reducirVida(int cantidad) {
-        this.vida = Math.max(0, this.vida - cantidad); // No vida negativa
+        this.vida = Math.max(0, this.vida - cantidad);
     }
 
     public void incrementarVida(int cantidad) {
         this.vida += cantidad;
     }
 
+    // Método aplicarPowerUp, que puedes modificar según lo que quieras que haga el power-up
     public void aplicarPowerUp(String tipoPowerUp) {
-        // Lógica para aplicar un power-up, basada en el tipo
+        // Implementa la lógica para aplicar el power-up al jugador
         System.out.println("Power-up aplicado: " + tipoPowerUp);
     }
-
-    public void aplicarEfecto(String tipoPowerUp){
-        // No se es para q no tire error
-    }
+    
 }

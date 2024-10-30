@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.badlogic.gdx.math.MathUtils;
+
 public class ControladorJuego {
     private List<Profesor> profesoresEnJuego;
 
@@ -46,5 +48,14 @@ public class ControladorJuego {
             activarTormentaCubillos();
         }
     }
+    public void activarCaidaProfesores() {
+    // Definir profesores con probabilidades
+    if (MathUtils.random(1, 100) <= 10) { // probabilidad para ProfesorAraya
+        agregarProfesor(new ProfesorAraya());
+    }
+    // Otras probabilidades para otros profesores...
 }
+
+}
+
 

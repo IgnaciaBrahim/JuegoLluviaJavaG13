@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+
 public class CaidaProfesores {
     private Array<Rectangle> rainDropsPos;
     private Array<Integer> rainDropsType;
@@ -16,49 +17,49 @@ public class CaidaProfesores {
     private Texture profesorAlfaro;
     private Texture profesorCubillos;
     private Texture profesorAraya;
+    private Texture fotoDeLaurita; // Añadir la textura de Laurita
     private Sound dropSound;
     private Music rainMusic;
- 
-    public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Sound ss, Music mm) {
+
+    // Constructor modificado
+    public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Texture fotoDeLaurita, Sound ss, Music mm) {
         this.profesorAlfaro = profesorAlfaro;
         this.profesorCubillos = profesorCubillos;
-        this.profesorAraya = profesorAraya; 
+        this.profesorAraya = profesorAraya;
+        this.fotoDeLaurita = fotoDeLaurita; // Inicializa la textura de Laurita
         this.dropSound = ss;
         this.rainMusic = mm;
     }
 
-    public void crear() {
-        rainDropsPos = new Array<Rectangle>();
-        rainDropsType = new Array<Integer>();
-        crearGotaDeLluvia();
-        // Iniciar la reproducción de la música de fondo inmediatamente
-        rainMusic.setLooping(true);
-        rainMusic.play();
+    private void crearGotaDeLluvia() {
+        Rectangle raindrop = new Rectangle();
+        raindrop.x = MathUtils.random(0, 800 - 64);
+        raindrop.y = 480;
+
+        int tipo = MathUtils.random(1, 100);
+        if (tipo <= 5) { // 5% de probabilidad para Laurita
+            rainDropsType.add(4); // Identificador para Laurita
+            raindrop.width = 60;
+            raindrop.height = 60;
+        } else if (tipo <= 15) { // Araya, 15% probabilidad
+            rainDropsType.add(3);
+            raindrop.width = 70;
+            raindrop.height = 70;
+        } else if (tipo <= 30) { // Cubillos
+            rainDropsType.add(1);
+            raindrop.width = 50;
+            raindrop.height = 50;
+        } else { // Alfaro
+            rainDropsType.add(2);
+            raindrop.width = 60;
+            raindrop.height = 60;
+        }
+
+        rainDropsPos.add(raindrop);
+        lastDropTime = TimeUtils.nanoTime();
     }
 
-    private void crearGotaDeLluvia() {
-		Rectangle raindrop = new Rectangle();
-		raindrop.x = MathUtils.random(0, 800 - 64);
-		raindrop.y = 480;
-	
-		int tipo = MathUtils.random(1, 100);
-		if (tipo <= 15) { // 15% de probabilidad para Araya
-			rainDropsType.add(3);
-			raindrop.width = 80; // Tamaño específico para Araya
-			raindrop.height = 80;
-		} else if (tipo <= 30) { // 30% de probabilidad para Cubillos
-			rainDropsType.add(1);
-			raindrop.width = 50; // Tamaño específico para Cubillos
-			raindrop.height = 50;
-		} else { // 50% de probabilidad para Alfaro
-			rainDropsType.add(2);
-			raindrop.width = 60; // Tamaño específico para Alfaro
-			raindrop.height = 60;
-		}
-	
-		rainDropsPos.add(raindrop);
-		lastDropTime = TimeUtils.nanoTime();
-	}
+    
 	
 
     public boolean actualizarMovimiento(Tarro tarro) { 
@@ -94,7 +95,16 @@ public class CaidaProfesores {
                         tarro.sumarPuntos(5); 
                         rainDropsPos.removeIndex(i);
                         rainDropsType.removeIndex(i);
-                    }
+                }
+                else if (rainDropsType.get(i) == 4) { // Laurita
+                    ProfesoraLaurita laurita = new ProfesoraLaurita();
+                    tarro.sumarPuntos(30);
+                    laurita.aplicarEfecto(tarro.getJugador(), null); // No funciona aun xd
+                    rainDropsPos.removeIndex(i);
+                    rainDropsType.removeIndex(i);
+                }
+                
+                
 				
             }
         }
@@ -102,18 +112,30 @@ public class CaidaProfesores {
     }
 
     public void actualizarDibujoLluvia(SpriteBatch batch) { 
-		for (int i = 0; i < rainDropsPos.size; i++) {
-			Rectangle raindrop = rainDropsPos.get(i);
-			if (rainDropsType.get(i) == 1) { // cubillo
-				batch.draw(profesorCubillos, raindrop.x, raindrop.y, 50, 50); 
-			} else if (rainDropsType.get(i) == 2) { // (Alfaro)
-				batch.draw(profesorAlfaro, raindrop.x, raindrop.y, 60, 60); 
-			} else if (rainDropsType.get(i) == 3) { // Araya
-				batch.draw(profesorAraya, raindrop.x, raindrop.y, 70, 70);  
-			}
-		}
-	}
-	
+        for (int i = 0; i < rainDropsPos.size; i++) {
+            Rectangle raindrop = rainDropsPos.get(i);
+            if (rainDropsType.get(i) == 1) { // gota dañina (Cubillos)
+                batch.draw(profesorCubillos, raindrop.x, raindrop.y, 50, 50); 
+            } else if (rainDropsType.get(i) == 2) { // gota buena (Alfaro)
+                batch.draw(profesorAlfaro, raindrop.x, raindrop.y, 60, 60); 
+            } else if (rainDropsType.get(i) == 3) { // Araya
+                batch.draw(profesorAraya, raindrop.x, raindrop.y, 70, 70);  
+            } else if (rainDropsType.get(i) == 4) { // Laurita
+                batch.draw(fotoDeLaurita, raindrop.x, raindrop.y, 60, 60); // Dibuja la textura de Laurita
+            }
+        }
+    }
+    
+	public void crear() {
+        rainDropsPos = new Array<Rectangle>();
+        rainDropsType = new Array<Integer>();
+        crearGotaDeLluvia(); // Crea una primera gota de lluvia
+    
+        // Iniciar la reproducción de la música de fondo inmediatamente
+        rainMusic.setLooping(true);
+        rainMusic.play();
+    }
+    
 
     public void destruir() {
         dropSound.dispose();

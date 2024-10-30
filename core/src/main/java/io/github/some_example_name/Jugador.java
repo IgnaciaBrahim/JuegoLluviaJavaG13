@@ -17,8 +17,10 @@ public class Jugador {
     }
 
     public void reducirPuntaje(int puntos) {
-        this.puntaje = Math.max(0, this.puntaje - puntos);
+        this.puntaje = Math.max(0, this.puntaje - puntos); 
     }
+    
+    
 
     public int getVida() {
         return vida;

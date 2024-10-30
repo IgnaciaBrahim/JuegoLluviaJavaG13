@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
         batch.begin();
 
         // Dibuja la información de puntos y vidas
-        font.draw(batch, "Gotas totales: " + tarro.getPuntos(), 5, 475);
+        font.draw(batch, "Puntaje: " + tarro.getJugador().getPuntaje(), 5, 475);
         font.draw(batch, "Vidas : " + tarro.getVidas(), 670, 475);
         font.draw(batch, "HighScore : " + game.getHigherScore(), camera.viewportWidth / 2 - 50, 475);
 

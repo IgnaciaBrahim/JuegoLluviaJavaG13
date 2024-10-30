@@ -29,17 +29,21 @@ public class Tarro {
 		public int getVidas() {
 			return vidas;
 		}
-	
+
+		public Jugador getJugador() {
+			return jugador;
+		}
+
 		public int getPuntos() {
 			return puntos;
 		}
 		public Rectangle getArea() {
 			return bucket;
 		}
-		public void sumarPuntos(int pp) {
-			puntos+=pp;
+		public void sumarPuntos(int puntos) {
+    		jugador.incrementarPuntaje(puntos); 
 		}
-		
+
 	
 	   public void crear() {
 		      bucket = new Rectangle();
@@ -90,5 +94,9 @@ public class Tarro {
    public boolean estaHerido() {
 	   return herido;
    }
+
+	
+
+
 	   
 }

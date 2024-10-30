@@ -88,11 +88,16 @@ public class CaidaProfesores {
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 } else if (rainDropsType.get(i) == 3) { // Araya
-					//tarro.getJugador().aplicarEfecto(new ProfesorAraya()); 
-                    tarro.sumarPuntos(5);
-					rainDropsPos.removeIndex(i);
-					rainDropsType.removeIndex(i);
-				}
+                        ProfesorAraya araya = new ProfesorAraya();
+                        araya.aplicarEfecto(tarro.getJugador(), null); 
+                        tarro.sumarPuntos(5);
+                        rainDropsPos.removeIndex(i);
+                        rainDropsType.removeIndex(i);
+                }
+                    
+                
+                    
+
 				
             }
         }

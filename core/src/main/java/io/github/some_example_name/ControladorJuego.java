@@ -28,7 +28,7 @@ public class ControladorJuego {
             @Override
             public void run() {
                 if (contador < 10) {
-                    agregarProfesor(new ProfesorVillano("Cubillos", 20));
+                    agregarProfesor(new ProfesorVillano("Cubillos", 20, 50));
                     contador++;
                 } else {
                     timer.cancel(); 

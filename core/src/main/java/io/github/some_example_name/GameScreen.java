@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
         
         //Verificar si el jugador quiere pausar el juego apretando Esc :D
         if (Gdx.input.isKeyJustPressed(com.badlogic.gdx.Input.Keys.ESCAPE)) {
-            game.setScreen(new PausaScreen(game, this)); // Cambia a la pantalla de pausa
+        	pause(); // Cambia a la pantalla de pausa
             return; // Termina el render actual para evitar dibujar el resto de elementos
         }
 
@@ -110,6 +110,7 @@ public class GameScreen implements Screen {
 	public void show() {
 	  // continuar con sonido de lluvia
 		//caidaProfes.continuar();
+		rainMusic.play();
 	}
 
 	@Override

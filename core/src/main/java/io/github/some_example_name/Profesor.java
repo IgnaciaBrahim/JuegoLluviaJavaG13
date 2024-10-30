@@ -36,6 +36,7 @@ public abstract class Profesor implements Recoleccionable {
      * @return true si el área del profesor se superpone con el área del tarro, false en caso contrario.
      */
     @Override
+    //El profesor puede saber si ha sido recolatado por el tarro o viceversa.
     public boolean haSidoRecolectado(Tarro tarro) {
         return tarro.getArea().overlaps(area);
     }

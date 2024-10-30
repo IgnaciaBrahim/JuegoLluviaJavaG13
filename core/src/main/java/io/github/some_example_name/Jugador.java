@@ -16,13 +16,16 @@ public class Jugador {
         return puntaje;
     }
 
-    public void incrementarPuntaje(int puntos) {
+    public void cambiarPuntaje(int puntos) {
         this.puntaje += puntos;
     }
 
-    public void reducirPuntaje(int puntos) {
+    /*public void reducirPuntaje(int puntos) {
         this.puntaje = Math.max(0, this.puntaje - puntos); 
     }
+    /*
+     * 
+     */
     
     public void otorgarInmunidad(int duracionSegundos) {
         this.inmune = true;
@@ -46,13 +49,15 @@ public class Jugador {
         return vida;
     }
 
-    public void reducirVida(int cantidad) {
-        this.vida = Math.max(0, this.vida - cantidad);
+    public void cambiarVida(int cantidad) {
+        this.vida += cantidad;
     }
-
+    
+    /*
     public void incrementarVida(int cantidad) {
         this.vida += cantidad;
     }
+    */
 
     // Método aplicarPowerUp, que puedes modificar según lo que quieras que haga el power-up
     public void aplicarPowerUp(String tipoPowerUp) {

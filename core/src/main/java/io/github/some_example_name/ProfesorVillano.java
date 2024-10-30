@@ -8,8 +8,8 @@ public class ProfesorVillano extends Profesor {
 
     @Override
     public void aplicarEfecto(Jugador jugador) {
-        jugador.reducirVida(10);  
-        jugador.reducirPuntaje(20);  
+        jugador.cambiarVida(-1);  
+        jugador.cambiarPuntaje(-20);  
         System.out.println(nombre + " reduce la vida y el puntaje.");
     }
 

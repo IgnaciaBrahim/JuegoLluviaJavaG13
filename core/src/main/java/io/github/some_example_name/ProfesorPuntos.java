@@ -10,7 +10,7 @@ public class ProfesorPuntos extends Profesor {
 
     @Override
     public void aplicarEfecto(Jugador jugador) {
-        jugador.incrementarPuntaje(puntos);
+        jugador.cambiarPuntaje(puntos);
         System.out.println(nombre + " otorga " + puntos + " puntos.");
     }
  

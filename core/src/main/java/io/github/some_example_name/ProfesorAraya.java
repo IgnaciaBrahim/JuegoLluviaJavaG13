@@ -14,7 +14,7 @@ public class ProfesorAraya extends Profesor {
         contadorRacha++;
         if (contadorRacha >= PUNTOS_RACHA) {
             if (!jugador.esInmune() && Math.random() < 0.9) { // 90% de probabilidad si no es inmune
-                jugador.reducirPuntaje(jugador.getPuntaje() / 2); // Divide el puntaje a la mitad
+                jugador.cambiarPuntaje( -1*jugador.getPuntaje() / 2); // Divide el puntaje a la mitad
                 System.out.println(nombre + " ha dividido el puntaje a la mitad.");
             } else {
                 System.out.println(nombre + " no afectó el puntaje esta vez.");

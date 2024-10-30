@@ -3,9 +3,9 @@ package io.github.some_example_name;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.Texture;
 
 
 public class PausaScreen implements Screen {
@@ -13,14 +13,14 @@ public class PausaScreen implements Screen {
 	private final GameLluviaMenu game;
 	private GameScreen juego;
 	private SpriteBatch batch;	   
-	private BitmapFont font;
 	private OrthographicCamera camera;
+	private Texture fondoPausa;
 
 	public PausaScreen (final GameLluviaMenu game, GameScreen juego) {
 		this.game = game;
         this.juego = juego;
         this.batch = game.getBatch();
-        this.font = game.getFont();
+        this.fondoPausa = new Texture(Gdx.files.internal("fondoPausaNight.png"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 	}
@@ -33,12 +33,11 @@ public class PausaScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "Juego en Pausa ", 100, 300);
-		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 300);
+	    batch.draw(fondoPausa, 0, 0, camera.viewportWidth, camera.viewportHeight); // Dibuja la textura de fondo
 		batch.end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(juego);
+			game.setScreen(juego);		
 			dispose();
 		}
 	}

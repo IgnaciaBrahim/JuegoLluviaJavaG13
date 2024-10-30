@@ -8,42 +8,45 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
+
 public class Tarro {
     private Rectangle bucket;
-    private Texture bucketImage;
+    private Texture imagenTarro;
     private Sound sonidoHerido;
-    private int vidas = 5;
-    private int puntos = 0;
-    private int velx = 400;
-    private boolean herido = false;
-    private int tiempoHeridoMax = 50;
+    private Sound sonidoBueno;
+    //El jugador tiene vidas y puntos, no el tarro.
+    //private int vidas = 5;
+    //private int puntos = 0;
+    private int velx;
+    private boolean herido;
+    private final int tiempoHeridoMax = 50;
     private int tiempoHerido;
-    private Jugador jugador;
 
+    /*
     public Tarro(Texture tex, Sound ss, Jugador jugador) {
         this.bucketImage = tex;
         this.sonidoHerido = ss;
         this.jugador = jugador;
     }
-	   
-		public int getVidas() {
-			return vidas;
-		}
-
-		public Jugador getJugador() {
-			return jugador;
-		}
-
-		public int getPuntos() {
-			return puntos;
-		}
+     */
+    
+    //El tarro sabe que textura y sonido tiene, no el contexto.
+    public Tarro() {
+    	this.imagenTarro = new Texture (Gdx.files.internal("bucket.png"));
+    	this.sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+    	this.sonidoBueno = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+        this.herido = false;
+        this.velx = 400;
+    }
 		public Rectangle getArea() {
 			return bucket;
 		}
-		public void sumarPuntos(int puntos) {
+		
+		//Nacha: arreglar. la logica de incrementar el puntaje no la sabe el tarrooooooooo aaaaaaa
+		/*public void sumarPuntos(int puntos) {
     		jugador.incrementarPuntaje(puntos); 
 		}
-
+		*/
 	
 	   public void crear() {
 		      bucket = new Rectangle();
@@ -53,17 +56,17 @@ public class Tarro {
 		      bucket.height = 64;
 	   }
 	   public void dañar() {
-		  vidas--;
+		  //vidas--;
 		  herido = true;
 		  tiempoHerido=tiempoHeridoMax;
 		  sonidoHerido.play();
 	   }
 	   public void dibujar(SpriteBatch batch) {
 		 if (!herido)  
-		   batch.draw(bucketImage, bucket.x, bucket.y);
+		   batch.draw(imagenTarro, bucket.x, bucket.y);
 		 else {
 		
-		   batch.draw(bucketImage, bucket.x, bucket.y+ MathUtils.random(-5,5));
+		   batch.draw(imagenTarro, bucket.x, bucket.y+ MathUtils.random(-5,5));
 		   tiempoHerido--;
 		   if (tiempoHerido<=0) herido = false;
 		 }
@@ -89,18 +92,22 @@ public class Tarro {
 		   if(bucket.x < 0) bucket.x = 0;
 		   if(bucket.x > 800 - 64) bucket.x = 800 - 64;
 	   }
+	   
+	   public boolean sobreponer(Rectangle profesor)
+	   {
+		   return bucket.overlaps(profesor);
+	   }
 	    
-
 	public void destruir() {
-		    bucketImage.dispose();
+		    imagenTarro.dispose();
 	   }
 	
    public boolean estaHerido() {
 	   return herido;
    }
-
-	
-
-
-	   
+   
+   public void sonidoBueno()
+   {
+	   sonidoBueno.play();
+   }  
 }

@@ -18,8 +18,7 @@ public class CaidaProfesores {
     private Texture profesorAraya;
     private Sound dropSound;
     private Music rainMusic;
-
-    // Constructor modificado
+ 
     public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Sound ss, Music mm) {
         this.profesorAlfaro = profesorAlfaro;
         this.profesorCubillos = profesorCubillos;
@@ -45,8 +44,8 @@ public class CaidaProfesores {
 		int tipo = MathUtils.random(1, 100);
 		if (tipo <= 15) { // 15% de probabilidad para Araya
 			rainDropsType.add(3);
-			raindrop.width = 70; // Tamaño específico para Araya
-			raindrop.height = 70;
+			raindrop.width = 80; // Tamaño específico para Araya
+			raindrop.height = 80;
 		} else if (tipo <= 30) { // 30% de probabilidad para Cubillos
 			rainDropsType.add(1);
 			raindrop.width = 50; // Tamaño específico para Cubillos
@@ -96,11 +95,6 @@ public class CaidaProfesores {
                         rainDropsPos.removeIndex(i);
                         rainDropsType.removeIndex(i);
                     }
-                    
-                    
-                
-                    
-
 				
             }
         }
@@ -110,9 +104,9 @@ public class CaidaProfesores {
     public void actualizarDibujoLluvia(SpriteBatch batch) { 
 		for (int i = 0; i < rainDropsPos.size; i++) {
 			Rectangle raindrop = rainDropsPos.get(i);
-			if (rainDropsType.get(i) == 1) { // gota dañina (Cubillos)
+			if (rainDropsType.get(i) == 1) { // cubillo
 				batch.draw(profesorCubillos, raindrop.x, raindrop.y, 50, 50); 
-			} else if (rainDropsType.get(i) == 2) { // gota buena (Alfaro)
+			} else if (rainDropsType.get(i) == 2) { // (Alfaro)
 				batch.draw(profesorAlfaro, raindrop.x, raindrop.y, 60, 60); 
 			} else if (rainDropsType.get(i) == 3) { // Araya
 				batch.draw(profesorAraya, raindrop.x, raindrop.y, 70, 70);  

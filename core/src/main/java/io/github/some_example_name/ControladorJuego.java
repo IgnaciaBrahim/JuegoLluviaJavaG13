@@ -49,7 +49,6 @@ public class ControladorJuego {
         }
     }
     public void activarCaidaProfesores() {
-    // Definir profesores con probabilidades
     if (MathUtils.random(1, 100) <= 10) { // probabilidad para ProfesorAraya
         agregarProfesor(new ProfesorAraya());
     }

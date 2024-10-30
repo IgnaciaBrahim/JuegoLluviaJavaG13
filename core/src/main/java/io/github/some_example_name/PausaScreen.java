@@ -33,8 +33,8 @@ public class PausaScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.draw(batch, "Juego en Pausa ", 100, 150);
-		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
+		font.draw(batch, "Juego en Pausa ", 100, 300);
+		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 300);
 		batch.end();
 
 		if (Gdx.input.isTouched()) {

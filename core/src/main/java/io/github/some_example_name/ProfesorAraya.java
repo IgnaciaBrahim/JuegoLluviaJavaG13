@@ -11,28 +11,25 @@ public class ProfesorAraya extends Profesor {
 
     @Override
     public void aplicarEfecto(Jugador jugador, ControladorJuego controlador) {
-        contadorRacha++; // Incrementa el contador de racha
-        if (contadorRacha >= PUNTOS_RACHA) { // Verifica si se alcanzó la racha de 3
-          if (Math.random() < 0.95) { // 95% de probabilidad de activar el efecto
-            jugador.reducirPuntaje(jugador.getPuntaje() / 2); // Divide el puntaje a la mitad
-            System.out.println(nombre + " ha dividido el puntaje a la mitad.");
-          } else {
-            System.out.println(nombre + " no afectó el puntaje esta vez.");
-          }
-          contadorRacha = 0; // Reinicia el contador de racha
+        contadorRacha++;
+        if (contadorRacha >= PUNTOS_RACHA) {
+            if (!jugador.esInmune() && Math.random() < 0.9) { // 90% de probabilidad si no es inmune
+                jugador.reducirPuntaje(jugador.getPuntaje() / 2); // Divide el puntaje a la mitad
+                System.out.println(nombre + " ha dividido el puntaje a la mitad.");
+            } else {
+                System.out.println(nombre + " no afectó el puntaje esta vez.");
+            }
+            contadorRacha = 0; // Reiniciar racha
+        }
     }
-}
-
 
     @Override
     public void aplicarEfecto(Jugador jugador) {
         aplicarEfecto(jugador, null); 
     }
 
-
     @Override
     public String getTipo() {
         return "Araya";
     }
-
 }

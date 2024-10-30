@@ -33,10 +33,14 @@ public class Jugador {
 
     public boolean esInmune() {
         if (inmune && System.currentTimeMillis() > tiempoInmunidadRestante) {
-            inmune = false; // Desactiva inmunidad después de la duración
+            inmune = false; // Desactiva la inmunidad después de la duración
+            System.out.println("Inmunidad desactivada");
         }
         return inmune;
     }
+    
+    
+    
 
     public int getVida() {
         return vida;

@@ -37,7 +37,7 @@ public class CaidaProfesores {
         raindrop.y = 480;
 
         int tipo = MathUtils.random(1, 100);
-        if (tipo <= 5) { // 5% de probabilidad para Laurita
+        if (tipo <= 2) { // 2% de probabilidad para Laurita
             rainDropsType.add(4); // Identificador para Laurita
             raindrop.width = 60;
             raindrop.height = 60;
@@ -64,52 +64,55 @@ public class CaidaProfesores {
 
     public boolean actualizarMovimiento(Tarro tarro) { 
         if (TimeUtils.nanoTime() - lastDropTime > 100000000) crearGotaDeLluvia();
-
+    
         for (int i = 0; i < rainDropsPos.size; i++) {
             Rectangle raindrop = rainDropsPos.get(i);
             raindrop.y -= 300 * Gdx.graphics.getDeltaTime();
-
+    
             if (raindrop.y + 64 < 0) {
                 rainDropsPos.removeIndex(i); 
                 rainDropsType.removeIndex(i);
+                continue;
             }
-
+    
             if (raindrop.overlaps(tarro.getArea())) { 
-                if (rainDropsType.get(i) == 1) { // profesor cubillos
-                    tarro.dañar();
-                    tarro.sumarPuntos(-30);
-                    if (tarro.getVidas() <= 0)
-                        return false;
-                  
+                Jugador jugador = tarro.getJugador();
+    
+                if (rainDropsType.get(i) == 1) { // Profesor Cubillos
+                    if (!jugador.esInmune()) { // Aplica efecto solo si no es inmune
+                        tarro.dañar();
+                        tarro.sumarPuntos(-30);
+                        if (tarro.getVidas() <= 0)
+                            return false;
+                    }
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
-                } else if (rainDropsType.get(i) == 2) { // profe alfaro a recolectar (buena)
+    
+                } else if (rainDropsType.get(i) == 2) { // Profesor Alfaro (beneficioso)
                     tarro.sumarPuntos(10);
                     dropSound.play();
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
-                } else if (rainDropsType.get(i) == 3) { // Araya
-                        ProfesorAraya araya = new ProfesorAraya();
-                        tarro.detenerTemporalmente();
-                        araya.aplicarEfecto(tarro.getJugador(), null); // Llama a aplicarEfecto
-                        tarro.sumarPuntos(5); 
-                        rainDropsPos.removeIndex(i);
-                        rainDropsType.removeIndex(i);
-                }
-                else if (rainDropsType.get(i) == 4) { // Laurita
-                    ProfesoraLaurita laurita = new ProfesoraLaurita();
-                    tarro.sumarPuntos(30);
-                    laurita.aplicarEfecto(tarro.getJugador(), null); // No funciona aun xd
+    
+                } else if (rainDropsType.get(i) == 3) { // Profesor Araya
+                    ProfesorAraya araya = new ProfesorAraya();
+                    araya.aplicarEfecto(tarro.getJugador(), null); // Aplica el efecto al jugador
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 }
-                
-                
-				
+                 else if (rainDropsType.get(i) == 4) { // Profesora Laurita
+                    ProfesoraLaurita laurita = new ProfesoraLaurita();
+                    laurita.aplicarEfecto(jugador, null); // Otorga inmunidad
+                    tarro.sumarPuntos(15);
+                    rainDropsPos.removeIndex(i);
+                    rainDropsType.removeIndex(i);
+                }
             }
         }
         return true;
     }
+       
+    
 
     public void actualizarDibujoLluvia(SpriteBatch batch) { 
         for (int i = 0; i < rainDropsPos.size; i++) {

@@ -1,5 +1,5 @@
 package io.github.some_example_name;
-import io.github.some_example_name.Jugador;
+//import io.github.some_example_name.Jugador;
 
 //import com.badlogic.gdx.math.Rectangle;
 

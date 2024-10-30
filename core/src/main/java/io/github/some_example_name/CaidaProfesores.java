@@ -9,21 +9,21 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-public class Lluvia {
+public class CaidaProfesores {
     private Array<Rectangle> rainDropsPos;
     private Array<Integer> rainDropsType;
     private long lastDropTime;
-    private Texture gotaBuena;
-    private Texture gotaMala;
-    private Texture gotaAraya; // Nueva textura para Araya
+    private Texture profesorAlfaro;
+    private Texture profesorCubillos;
+    private Texture profesorAraya;
     private Sound dropSound;
     private Music rainMusic;
 
     // Constructor modificado
-    public Lluvia(Texture gotaBuena, Texture gotaMala, Texture gotaAraya, Sound ss, Music mm) {
-        this.gotaBuena = gotaBuena;
-        this.gotaMala = gotaMala;
-        this.gotaAraya = gotaAraya; // Asigna la textura de Araya
+    public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Sound ss, Music mm) {
+        this.profesorAlfaro = profesorAlfaro;
+        this.profesorCubillos = profesorCubillos;
+        this.profesorAraya = profesorAraya; 
         this.dropSound = ss;
         this.rainMusic = mm;
     }
@@ -75,19 +75,21 @@ public class Lluvia {
             }
 
             if (raindrop.overlaps(tarro.getArea())) { 
-                if (rainDropsType.get(i) == 1) { // gota dañina
+                if (rainDropsType.get(i) == 1) { // profesor cubillos
                     tarro.dañar();
+                    tarro.sumarPuntos(-30);
                     if (tarro.getVidas() <= 0)
                         return false;
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
-                } else if (rainDropsType.get(i) == 2) { // gota a recolectar (buena)
+                } else if (rainDropsType.get(i) == 2) { // profe alfaro a recolectar (buena)
                     tarro.sumarPuntos(10);
                     dropSound.play();
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 } else if (rainDropsType.get(i) == 3) { // Araya
 					//tarro.getJugador().aplicarEfecto(new ProfesorAraya()); 
+                    tarro.sumarPuntos(5);
 					rainDropsPos.removeIndex(i);
 					rainDropsType.removeIndex(i);
 				}
@@ -101,11 +103,11 @@ public class Lluvia {
 		for (int i = 0; i < rainDropsPos.size; i++) {
 			Rectangle raindrop = rainDropsPos.get(i);
 			if (rainDropsType.get(i) == 1) { // gota dañina (Cubillos)
-				batch.draw(gotaMala, raindrop.x, raindrop.y, 50, 50); 
+				batch.draw(profesorCubillos, raindrop.x, raindrop.y, 50, 50); 
 			} else if (rainDropsType.get(i) == 2) { // gota buena (Alfaro)
-				batch.draw(gotaBuena, raindrop.x, raindrop.y, 60, 60); 
+				batch.draw(profesorAlfaro, raindrop.x, raindrop.y, 60, 60); 
 			} else if (rainDropsType.get(i) == 3) { // Araya
-				batch.draw(gotaAraya, raindrop.x, raindrop.y, 70, 70);  
+				batch.draw(profesorAraya, raindrop.x, raindrop.y, 70, 70);  
 			}
 		}
 	}

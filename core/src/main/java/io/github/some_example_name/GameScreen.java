@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;	   
     private BitmapFont font;
     private Tarro tarro;
-    private Lluvia lluvia;
+    private CaidaProfesores lluvia;
 
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
         Music rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 
         // Crear instancia de Lluvia
-        lluvia = new Lluvia(gota, gotaMala, arayaTexture, dropSound, rainMusic);
+        lluvia = new CaidaProfesores(gota, gotaMala, arayaTexture, dropSound, rainMusic);
 
         // Configurar la cámara
         camera = new OrthographicCamera();

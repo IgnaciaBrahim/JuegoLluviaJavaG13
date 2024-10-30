@@ -24,7 +24,7 @@ public class ProfesorAraya extends Profesor {
     }
     @Override
     public void aplicarEfecto(Jugador jugador) {
-        aplicarEfecto(jugador, null); // Llama a la versión completa, pasando null para el controlador
+        aplicarEfecto(jugador, null); 
     }
 
 

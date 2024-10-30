@@ -6,7 +6,7 @@ public abstract class Profesor implements Recoleccionable {
     protected String nombre;
     protected int frecuencia;
     protected int probabilidadAparicion;
-    protected Rectangle area; // Área de colisión para cada profesor
+    protected Rectangle area;  
 
     /**
      * Constructor para la clase Profesor.
@@ -19,7 +19,7 @@ public abstract class Profesor implements Recoleccionable {
         this.nombre = nombre;
         this.frecuencia = frecuencia;
         this.probabilidadAparicion = probabilidad;
-        this.area = new Rectangle(); // Inicializa el área de colisión si es necesario
+        this.area = new Rectangle();  
     }
     
     @Override

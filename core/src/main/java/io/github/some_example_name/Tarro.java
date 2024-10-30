@@ -68,7 +68,11 @@ public class Tarro {
 		   if (tiempoHerido<=0) herido = false;
 		 }
 	   } 
-	   
+	   public void detenerTemporalmente() {
+		herido = true;  // Activa el modo de sacudida
+		tiempoHerido = tiempoHeridoMax;  // Resetea el contador de tiempo para la sacudida
+		}
+	
 	   
 	   public void actualizarMovimiento() { 
 		   // movimiento desde mouse/touch

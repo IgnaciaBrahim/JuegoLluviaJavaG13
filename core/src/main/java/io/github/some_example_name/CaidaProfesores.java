@@ -80,6 +80,7 @@ public class CaidaProfesores {
                     tarro.sumarPuntos(-30);
                     if (tarro.getVidas() <= 0)
                         return false;
+                  
                     rainDropsPos.removeIndex(i);
                     rainDropsType.removeIndex(i);
                 } else if (rainDropsType.get(i) == 2) { // profe alfaro a recolectar (buena)
@@ -89,11 +90,13 @@ public class CaidaProfesores {
                     rainDropsType.removeIndex(i);
                 } else if (rainDropsType.get(i) == 3) { // Araya
                         ProfesorAraya araya = new ProfesorAraya();
-                        araya.aplicarEfecto(tarro.getJugador(), null); 
-                        tarro.sumarPuntos(5);
+                        tarro.detenerTemporalmente();
+                        araya.aplicarEfecto(tarro.getJugador(), null); // Llama a aplicarEfecto
+                        tarro.sumarPuntos(5); 
                         rainDropsPos.removeIndex(i);
                         rainDropsType.removeIndex(i);
-                }
+                    }
+                    
                     
                 
                     

@@ -14,6 +14,8 @@ public class Tarro {
     private Texture imagenTarro;
     private Sound sonidoHerido;
     private Sound sonidoBueno;
+	private Sound sonidoExtrano;
+	private Sound sonidoEspecial;
     //El jugador tiene vidas y puntos, no el tarro.
     //private int vidas = 5;
     //private int puntos = 0;
@@ -34,9 +36,12 @@ public class Tarro {
     public Tarro() {
     	this.imagenTarro = new Texture (Gdx.files.internal("bucket.png"));
     	this.sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-    	this.sonidoBueno = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+    	this.sonidoBueno = Gdx.audio.newSound(Gdx.files.internal("corkpup.mp3"));
+		this.sonidoEspecial = Gdx.audio.newSound(Gdx.files.internal("3-down-fast-3-106140.mp3"));
+		this.sonidoExtrano = Gdx.audio.newSound(Gdx.files.internal("woosh-1-84800.mp3"));
         this.herido = false;
         this.velx = 400;
+		
     }
 		public Rectangle getArea() {
 			return bucket;
@@ -110,4 +115,11 @@ public class Tarro {
    {
 	   sonidoBueno.play();
    }  
+   public void sonidoEspecial()
+   {
+	sonidoEspecial.play();
+   }  
+   public void sonidoExtrano(){
+	sonidoExtrano.play();
+   }
 }

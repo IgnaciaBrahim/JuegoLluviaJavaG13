@@ -101,14 +101,14 @@ public class CaidaProfesores {
                     tipoProfesores.removeIndex(i);
     
                 } else if (tipoProfesores.get(i) == 3) { // Profesor Araya
-                	tarro.sonidoBueno();
+                	tarro.sonidoExtrano();
                     ProfesorAraya araya = new ProfesorAraya();
                     araya.aplicarEfecto(jugador, null); // Aplica el efecto al jugador
                     posicionProfesores.removeIndex(i);
                     tipoProfesores.removeIndex(i);
                 }
                  else if (tipoProfesores.get(i) == 4) { // Profesora Laurita
-                	tarro.sonidoBueno();
+                	tarro.sonidoEspecial();
                     ProfesoraLaurita laurita = new ProfesoraLaurita();
                     laurita.aplicarEfecto(jugador, null); // Otorga inmunidad
                     jugador.cambiarPuntaje(15);

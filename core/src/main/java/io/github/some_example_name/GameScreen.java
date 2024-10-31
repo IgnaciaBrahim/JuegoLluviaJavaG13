@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
         Texture arayaTexture = new Texture(Gdx.files.internal("fotoAraya.png"));
         Texture lauritaTexture = new Texture(Gdx.files.internal("fotoDeLaurita.png"));
         //Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("feed-the-machine-classic-arcade-game-116846.mp3"));
         this.fondoSpriteDia = new Texture(Gdx.files.internal("fondoSpriteDia.jpg"));
 
         // Crear instancia de Lluvia

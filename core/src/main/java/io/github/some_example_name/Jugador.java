@@ -59,9 +59,9 @@ public class Jugador {
     }
     */
 
-    // Método aplicarPowerUp, que puedes modificar según lo que quieras que haga el power-up
+    // Método aplicarPowerUp
     public void aplicarPowerUp(String tipoPowerUp) {
-        // Implementa la lógica para aplicar el power-up al jugador
+        //  lógica para aplicar el power-up al jugador
         System.out.println("Power-up aplicado: " + tipoPowerUp);
     }
 }

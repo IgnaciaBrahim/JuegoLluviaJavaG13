@@ -38,7 +38,7 @@ public class CaidaProfesores {
         profe.y = 480;
 
         int tipo = MathUtils.random(1, 100);
-        if (tipo <= 2) { // 2% de probabilidad para Laurita
+        if (tipo <= 5) { // 2% de probabilidad para Laurita
             tipoProfesores.add(4); // Identificador para Laurita
             profe.width = 60;
             profe.height = 60;
@@ -64,12 +64,13 @@ public class CaidaProfesores {
 	
 
     public boolean actualizarMovimiento(Tarro tarro, Jugador jugador) { 
-        if (TimeUtils.nanoTime() - tiempoUltimoProfesor > 1000000000) crearGotaDeLluvia();
+        if (TimeUtils.nanoTime() - tiempoUltimoProfesor > 500000000) crearGotaDeLluvia();
+
     
         for (int i = 0; i < posicionProfesores.size; i++) {
             Rectangle profe = posicionProfesores.get(i);
             //set y ?
-            profe.y -= 100 * Gdx.graphics.getDeltaTime();
+            profe.y -= 150 * Gdx.graphics.getDeltaTime();
             
             //get y
             if (profe.y + 64 < 0) {

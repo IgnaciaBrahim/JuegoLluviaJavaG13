@@ -34,7 +34,7 @@ public class Tarro {
     
     //El tarro sabe que textura y sonido tiene, no el contexto.
     public Tarro() {
-    	this.imagenTarro = new Texture (Gdx.files.internal("personaje.png"));
+    	this.imagenTarro = new Texture (Gdx.files.internal("bucket.png"));
     	this.sonidoHerido = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
     	this.sonidoBueno = Gdx.audio.newSound(Gdx.files.internal("corkpup.mp3"));
 		this.sonidoEspecial = Gdx.audio.newSound(Gdx.files.internal("3-down-fast-3-106140.mp3"));

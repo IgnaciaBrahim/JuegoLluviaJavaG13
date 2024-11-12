@@ -6,5 +6,6 @@ public class EstrategiaArayaBueno implements EstrategiaProfesor {
         tarro.sonidoBueno();
         jugador.cambiarPuntaje(15);//Cuando araya es bueno te da puntaje
         //Si no lo has recogido más de 3 veces :)
+        aa.aplicarEfecto(jugador, null);
     }
 }

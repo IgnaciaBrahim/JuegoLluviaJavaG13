@@ -155,29 +155,5 @@ public class CaidaProfesores {
 		posicionProfesores = new Array<Rectangle>();
         tipoProfesores = new Array<Integer>();
         crearGotaDeLluvia(); // Crea una primera gota de lluvia
-    
-        // Iniciar la reproducción de la música de fondo inmediatamente
-        //rainMusic.setLooping(true);
-        //rainMusic.play();
     }
-    
-
-	/*
-    public void destruir() {
-        //dropSound.dispose();
-        //rainMusic.dispose();
-    }
-
-    public void pausar() {
-        if (rainMusic.isPlaying()) {
-            rainMusic.pause();
-        }
-    }
-
-    public void continuar() {
-        if (!rainMusic.isPlaying()) {
-            rainMusic.play();
-        }
-    }
-    */
 }

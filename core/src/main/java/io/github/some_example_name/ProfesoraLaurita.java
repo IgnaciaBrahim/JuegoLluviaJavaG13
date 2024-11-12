@@ -13,6 +13,7 @@ public class ProfesoraLaurita extends Profesor {
     }
 
     // Implementación del método abstracto requerido por la interfaz
+    //unused
     @Override
     public void aplicarEfecto(Jugador jugador) {
         aplicarEfecto(jugador, null); // Llama a la versión con ControladorJuego, pasando null
@@ -21,7 +22,7 @@ public class ProfesoraLaurita extends Profesor {
     @Override
 public void aplicarEfecto(Jugador jugador, ControladorJuego controlador) {
     jugador.otorgarInmunidad(DURACION_INMUNIDAD); // Este llamado debe usar "jugador"
-    System.out.println(nombre + " ha otorgado inmunidad por " + DURACION_INMUNIDAD + " segundos.");
+    
 }
 
 

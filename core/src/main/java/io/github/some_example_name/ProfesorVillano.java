@@ -6,6 +6,7 @@ public class ProfesorVillano extends Profesor {
         super(nombre, frecuencia, probabilidad);
     }
 
+    //unused
     @Override
     public void aplicarEfecto(Jugador jugador) {
         jugador.cambiarVida(-1);  

@@ -7,7 +7,8 @@ public class ProfesorPowerUp extends Profesor {
         super(nombre, frecuencia, probabilidad);
         this.tipoPowerUp = tipoPowerUp;
     }
-
+    
+    //unused
     @Override
     public void aplicarEfecto(Jugador jugador) {
         aplicarEfecto(jugador, null); 

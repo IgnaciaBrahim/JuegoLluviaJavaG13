@@ -8,6 +8,7 @@ public class ProfesorPuntos extends Profesor {
         this.puntos = puntos;
     }
 
+    //unused
     @Override
     public void aplicarEfecto(Jugador jugador) {
         jugador.cambiarPuntaje(puntos);

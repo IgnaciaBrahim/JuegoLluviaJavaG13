@@ -17,7 +17,11 @@ public class CaidaProfesores {
     private Texture profesorAlfaro;
     private Texture profesorCubillos;
     private Texture profesorAraya;
-    private Texture fotoDeLaurita; // Añadir la textura de Laurita
+    private Texture fotoDeLaurita;
+    private EstrategiaProfesor estrategiaProfesor;
+    private ProfesorAraya profeAraya;
+    private ProfesoraLaurita profeLaura;
+    
     //El profesor sabe que sonido hace en el juego
     //private Sound dropSound;
     //La música es intrinseca al escenario donde los profesores caen :)
@@ -30,7 +34,39 @@ public class CaidaProfesores {
         this.profesorAraya = profesorAraya;
         this.fotoDeLaurita = fotoDeLaurita; // Inicializa la textura de Laurita
         //this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        this.profeAraya = new ProfesorAraya();
+        this.profeLaura = new ProfesoraLaurita();
+        //Son profesores instanciados para regular sus rachas e inmunidades.
     }
+    
+    
+    //Para aplicar patron strategy a la forma en la que los profes afectan a los 
+    //jugadores o al tarro :)
+    private void setearEstrategia(int tipo, boolean rachaAraya) {
+        switch (tipo) {
+            case 1: 
+            	this.estrategiaProfesor = new EstrategiaCubillos();
+            	break;
+            case 2: 
+            	this.estrategiaProfesor = new EstrategiaAlfaro();
+            	break;
+            case 3:
+            	if (rachaAraya)
+            	{
+            		this.estrategiaProfesor = new EstrategiaArayaMalo();
+            	}
+            	else 
+            	{
+            		this.estrategiaProfesor = new EstrategiaArayaBueno();
+            	}
+            	break;
+            case 4: 
+            	this.estrategiaProfesor = new EstrategiaLaurita();
+            	break;
+            default: throw new IllegalArgumentException("Tipo de profesor no reconocido");
+        }
+    }
+
 
     private void crearGotaDeLluvia() {
         Rectangle profe = new Rectangle();
@@ -63,60 +99,39 @@ public class CaidaProfesores {
     
 	
 
-    public boolean actualizarMovimiento(Tarro tarro, Jugador jugador) { 
+    public boolean actualizarMovimiento(Tarro tarro, Jugador jugador) 
+    { 
         if (TimeUtils.nanoTime() - tiempoUltimoProfesor > 500000000) crearGotaDeLluvia();
 
     
-        for (int i = 0; i < posicionProfesores.size; i++) {
+        for (int i = 0; i < posicionProfesores.size; i++) 
+        {
             Rectangle profe = posicionProfesores.get(i);
             //set y ?
             profe.y -= 150 * Gdx.graphics.getDeltaTime();
             
             //get y
-            if (profe.y + 64 < 0) {
+            if (profe.y + 64 < 0) 
+            {
             	posicionProfesores.removeIndex(i); 
                 tipoProfesores.removeIndex(i);
                 continue;
             }
-    
+            
+            //Patrón Strategy: Cómo el profesor afecta al tarro y al jugador
+            //Depende de qué profesor es.
             if (tarro.sobreponer(profe)) { 
-    
-                if (tipoProfesores.get(i) == 1) { // Profesor Cubillos
-                    if (!jugador.esInmune()) { // Aplica efecto solo si no es inmune
-                    	tarro.dañar();
-                    	jugador.cambiarPuntaje(-30);
-                        jugador.cambiarVida(-1);
-                        if (jugador.getVida() == 0)
-                        {
-                 		   return false; //no sigue el juego
-                        }
-                    }
-                    posicionProfesores.removeIndex(i);
-                    tipoProfesores.removeIndex(i);
-    
-                } else if (tipoProfesores.get(i) == 2) { // Profesor Alfaro (beneficioso)
-                    tarro.sonidoBueno();
-                	jugador.cambiarPuntaje(10);
-                    //dropSound.play(); se modifica a profesor.Sonido();
-                    posicionProfesores.removeIndex(i);
-                    tipoProfesores.removeIndex(i);
-    
-                } else if (tipoProfesores.get(i) == 3) { // Profesor Araya
-                	tarro.sonidoExtrano();
-                    ProfesorAraya araya = new ProfesorAraya();
-                    araya.aplicarEfecto(jugador, null); // Aplica el efecto al jugador
-                    posicionProfesores.removeIndex(i);
-                    tipoProfesores.removeIndex(i);
+            	boolean rachaProfesorAraya = profeAraya.obtenerRacha();
+            	int tipoProfesor = tipoProfesores.get(i);
+                setearEstrategia(tipoProfesor, rachaProfesorAraya);
+                estrategiaProfesor.efectoProfesor(jugador, tarro, profeAraya, profeLaura);
+                if (jugador.getVida() == 0)
+                {
+                	return false;
                 }
-                 else if (tipoProfesores.get(i) == 4) { // Profesora Laurita
-                	tarro.sonidoEspecial();
-                    ProfesoraLaurita laurita = new ProfesoraLaurita();
-                    laurita.aplicarEfecto(jugador, null); // Otorga inmunidad
-                    jugador.cambiarPuntaje(15);
-                    posicionProfesores.removeIndex(i);
-                    tipoProfesores.removeIndex(i);
-                }
-            }
+                posicionProfesores.removeIndex(i);
+                tipoProfesores.removeIndex(i);
+            } 
         }
         return true;
     }

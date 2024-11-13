@@ -4,69 +4,82 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.badlogic.gdx.math.MathUtils;
 
 public class ControladorJuego {
     private List<Profesor> profesoresEnJuego;
-    private long tiempoJugado;   
+    private long tiempoJugado;
+    private Jugador jugador;
 
-    public ControladorJuego() {
-        profesoresEnJuego = new ArrayList<>();
-        tiempoJugado = 0;  // Inicializa el tiempo de juego
-        iniciarContadorTiempo();
-    }
+    private CaidaProfesores caidaProfesores;
+
+public ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores) {
+    this.profesoresEnJuego = new ArrayList<>();
+    this.tiempoJugado = 0;
+    this.jugador = jugador;
+    this.caidaProfesores = caidaProfesores; // Asigna la referencia de CaidaProfesores
+    iniciarContadorTiempo();
+}
+
+    
 
     private void iniciarContadorTiempo() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                tiempoJugado++;  
+                tiempoJugado++;
             }
-        }, 0, 1000);  
+        }, 0, 1000);
     }
 
     public void agregarProfesor(Profesor profesor) {
-        profesoresEnJuego.add(profesor);
+        profesoresEnJuego.add(profesor); // Añade el profesor a la lista de personajes en el juego
+        System.out.println("Profesor " + profesor.getNombre() + " agregado al juego");
+        caidaProfesores.crearGotaDeLluvia(profesor); // Agrega el profesor a CaidaProfesores para dibujarlo
+    }
+    
+    
+
+    public long getTiempoJugado() {
+        return tiempoJugado;
     }
 
-    public void activarTormentaCubillos() {
-        System.out.println("¡Tormenta de Cubillos activada!");
+    public void activarEventoEspecial(String tipoEvento) {
+        EventoJuego evento;
 
-        int intervaloAparicion = Math.max(500 - (int)(tiempoJugado * 2), 100); 
+        switch (tipoEvento) {
+            case "TormentaCubillos":
+                evento = new EventoTormentaCubillos(this, jugador);
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo de evento desconocido: " + tipoEvento);
+        }
 
-        Timer timer = new Timer();
-        TimerTask tareaTormenta = new TimerTask() {
-            private int contador = 0;
-
-            @Override
-            public void run() {
-                if (contador < 10 + tiempoJugado / 60) {  
-                    agregarProfesor(new ProfesorVillano("Cubillos", 20, 50));
-                    contador++;
-                } else {
-                    timer.cancel();
-                    System.out.println("Fin de la tormenta de Cubillos.");
-                }
-            }
-        };
-
-        timer.schedule(tareaTormenta, 0, intervaloAparicion); 
+        evento.activarEvento();
     }
 
-    public void recolectarProfesor(Profesor profesor, Jugador jugador) {
+    public void recolectarProfesor(Profesor profesor) {
         profesor.aplicarEfecto(jugador, this);
         profesoresEnJuego.remove(profesor);
-
+    
         if (profesor instanceof ProfesorVillano) {
-            activarTormentaCubillos();
+            System.out.println("Iniciando Tormenta de Cubillos");
+            activarEventoEspecial("TormentaCubillos"); // Debe llamar al evento especial
         }
     }
+    
+    // ---- INICIO DE MODIFICACIÓN ----
+    // Nuevo método para activar la tormenta de cubillos a través de Jugador
+    public void iniciarTormentaCubillos() {
+        EventoTormentaCubillos tormenta = new EventoTormentaCubillos(this, jugador);
+        tormenta.configurarEvento();  // Inicia la configuración y ejecución de la tormenta
+    }
+    // ---- FIN DE MODIFICACIÓN ----
 
     public void activarCaidaProfesores() {
-        if (MathUtils.random(1, 100) <= 10) { // probabilidad para ProfesorAraya
-        agregarProfesor(new ProfesorAraya());
+        if (MathUtils.random(1, 100) <= 10) {
+            agregarProfesor(new ProfesorAraya());
         }    
     }
 
@@ -78,9 +91,6 @@ public class ControladorJuego {
     }
 
     private int calcularProbabilidadVillano() {
-        return Math.min(10 + (int)(tiempoJugado / 30), 50);  
+        return Math.min(10 + (int)(tiempoJugado / 30), 50);
     }
-
 }
-
-

@@ -101,8 +101,23 @@ public class CaidaProfesores {
         tiempoUltimoProfesor = TimeUtils.nanoTime();
     }
 
+    // SOBREESCRITURA WUOUOUOU
+	public void crearGotaDeLluvia(Profesor profesor) {
+        Rectangle profe = new Rectangle();
+        profe.x = MathUtils.random(0, 800 - 64);
+        profe.y = 480;
     
-	
+        if (profesor instanceof ProfesorVillano) {
+            tipoProfesores.add(1); // Identificador para Cubillos
+            profe.width = 50;
+            profe.height = 50;
+        }
+        // Otros tipos de profesores pueden agregarse aquí si es necesario
+    
+        posicionProfesores.add(profe);
+        tiempoUltimoProfesor = TimeUtils.nanoTime();
+    }
+    
 
     public boolean actualizarMovimiento(Tarro tarro, Jugador jugador) 
     { 

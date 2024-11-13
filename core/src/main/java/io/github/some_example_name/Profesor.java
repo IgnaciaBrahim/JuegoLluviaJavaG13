@@ -24,9 +24,7 @@ public abstract class Profesor implements Recoleccionable {
     
     @Override
     public void caer() {
-        // Lógica de caída común (opcional, puede ser sobreescrita en subclases)
-        // Puedes definir la velocidad de caída y actualizar la posición en "y"
-        area.y -= frecuencia; // Ejemplo básico de movimiento en caída
+        area.y -= frecuencia; 
     }
 
     /**
@@ -78,4 +76,5 @@ public abstract class Profesor implements Recoleccionable {
     public Rectangle getArea() {
         return area;
     }
+    public String getNombre(){ return nombre; }
 }

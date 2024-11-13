@@ -5,12 +5,21 @@ public class Jugador {
     private int vida;
     private long tiempoInmunidadRestante;
     private boolean inmune; // Declaración de la variable inmune
+    
+    // ---- INICIO DE MODIFICACIÓN ----
+    private ControladorJuego controlador;
 
-    public Jugador(int vidaInicial) {
+    public Jugador(int vidaInicial, ControladorJuego controlador) {
         this.vida = vidaInicial;
         this.puntaje = 0;
         this.inmune = false; // Inicializa inmune como false
+        this.controlador = controlador; // Guarda la referencia al controlador
     }
+
+    public void activarTormentaCubillos() {
+        controlador.iniciarTormentaCubillos();
+    }
+    // ---- FIN DE MODIFICACIÓN ----
 
     public int getPuntaje() {
         return puntaje;

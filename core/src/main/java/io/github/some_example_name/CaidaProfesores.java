@@ -1,5 +1,5 @@
 package io.github.some_example_name;
-
+import io.github.some_example_name.EstrategiaProfesor;
 import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import io.github.some_example_name.EstrategiaArayaMalo;
+import io.github.some_example_name.EstrategiaArayaBueno;
+import io.github.some_example_name.EstrategiaAlfaro;
+import io.github.some_example_name.EstrategiaLaurita;
 
 //Modela la forma en la que caen los profesores
 public class CaidaProfesores {
@@ -21,6 +25,7 @@ public class CaidaProfesores {
     private EstrategiaProfesor estrategiaProfesor;
     private ProfesorAraya profeAraya;
     private ProfesoraLaurita profeLaura;
+    
     
     //El profesor sabe que sonido hace en el juego
     //private Sound dropSound;

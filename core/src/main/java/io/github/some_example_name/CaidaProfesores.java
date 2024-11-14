@@ -112,7 +112,6 @@ public class CaidaProfesores {
             profe.width = 50;
             profe.height = 50;
         }
-        // Otros tipos de profesores pueden agregarse aquí si es necesario
     
         posicionProfesores.add(profe);
         tiempoUltimoProfesor = TimeUtils.nanoTime();

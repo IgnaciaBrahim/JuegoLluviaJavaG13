@@ -50,7 +50,6 @@ public abstract class Profesor implements Recoleccionable {
 
     /**
      * Define el efecto que se aplicará al jugador cuando recoja al profesor.
-     * Este método debe ser implementado en cada subclase para definir el efecto específico.
      * 
      * @param jugador Jugador sobre el cual se aplica el efecto.
      * @param controlador Controlador del juego, que puede gestionar eventos adicionales.

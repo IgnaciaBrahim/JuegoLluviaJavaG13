@@ -69,13 +69,11 @@ public ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores) {
         }
     }
     
-    // ---- INICIO DE MODIFICACIÓN ----
     // Nuevo método para activar la tormenta de cubillos a través de Jugador
     public void iniciarTormentaCubillos() {
         EventoTormentaCubillos tormenta = new EventoTormentaCubillos(this, jugador);
         tormenta.configurarEvento();  // Inicia la configuración y ejecución de la tormenta
     }
-    // ---- FIN DE MODIFICACIÓN ----
 
     public void activarCaidaProfesores() {
         if (MathUtils.random(1, 100) <= 10) {

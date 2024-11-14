@@ -4,9 +4,8 @@ public class Jugador {
     private int puntaje;
     private int vida;
     private long tiempoInmunidadRestante;
-    private boolean inmune; // Declaración de la variable inmune
+    private boolean inmune; 
     
-    // ---- INICIO DE MODIFICACIÓN ----
     private ControladorJuego controlador;
 
     public Jugador(int vidaInicial, ControladorJuego controlador) {
@@ -19,7 +18,6 @@ public class Jugador {
     public void activarTormentaCubillos() {
         controlador.iniciarTormentaCubillos();
     }
-    // ---- FIN DE MODIFICACIÓN ----
 
     public int getPuntaje() {
         return puntaje;
@@ -32,8 +30,6 @@ public class Jugador {
     /*public void reducirPuntaje(int puntos) {
         this.puntaje = Math.max(0, this.puntaje - puntos); 
     }
-    /*
-     * 
      */
     
     public void otorgarInmunidad(int duracionSegundos) {
@@ -70,7 +66,6 @@ public class Jugador {
 
     // Método aplicarPowerUp
     public void aplicarPowerUp(String tipoPowerUp) {
-        //  lógica para aplicar el power-up al jugador
         System.out.println("Power-up aplicado: " + tipoPowerUp);
     }
 }

@@ -8,7 +8,7 @@ public abstract class EventoJuego {
         this.controlador = controlador;
         this.jugador = jugador;
     }
-
+    // PATRON DE DISEÑO - TEMPLATE
     // Método plantilla para definir el flujo de un evento de juego
     public final void activarEvento() {
         configurarEvento();

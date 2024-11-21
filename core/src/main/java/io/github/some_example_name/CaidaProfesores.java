@@ -1,5 +1,5 @@
 package io.github.some_example_name;
-
+import io.github.some_example_name.EstrategiaProfesor;
 import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import io.github.some_example_name.EstrategiaArayaMalo;
+import io.github.some_example_name.EstrategiaArayaBueno;
+import io.github.some_example_name.EstrategiaAlfaro;
+import io.github.some_example_name.EstrategiaLaurita;
 
 //Modela la forma en la que caen los profesores
 public class CaidaProfesores {
@@ -21,6 +25,7 @@ public class CaidaProfesores {
     private EstrategiaProfesor estrategiaProfesor;
     private ProfesorAraya profeAraya;
     private ProfesoraLaurita profeLaura;
+    
     
     //El profesor sabe que sonido hace en el juego
     //private Sound dropSound;
@@ -96,8 +101,22 @@ public class CaidaProfesores {
         tiempoUltimoProfesor = TimeUtils.nanoTime();
     }
 
+    // SOBREESCRITURA WUOUOUOU
+	public void crearGotaDeLluvia(Profesor profesor) {
+        Rectangle profe = new Rectangle();
+        profe.x = MathUtils.random(0, 800 - 64);
+        profe.y = 480;
     
-	
+        if (profesor instanceof ProfesorVillano) {
+            tipoProfesores.add(1); // Identificador para Cubillos
+            profe.width = 50;
+            profe.height = 50;
+        }
+    
+        posicionProfesores.add(profe);
+        tiempoUltimoProfesor = TimeUtils.nanoTime();
+    }
+    
 
     public boolean actualizarMovimiento(Tarro tarro, Jugador jugador) 
     { 

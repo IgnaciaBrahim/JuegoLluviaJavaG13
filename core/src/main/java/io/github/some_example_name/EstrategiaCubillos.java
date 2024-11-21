@@ -7,6 +7,7 @@ public class EstrategiaCubillos implements EstrategiaProfesor {
             tarro.dañar();
             jugador.cambiarPuntaje(-30);
             jugador.cambiarVida(-1);
+            jugador.activarTormentaCubillos(); // Activa la tormenta a través del jugador
         }
     }
 }

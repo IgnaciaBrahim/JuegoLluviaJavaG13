@@ -24,9 +24,7 @@ public abstract class Profesor implements Recoleccionable {
     
     @Override
     public void caer() {
-        // Lógica de caída común (opcional, puede ser sobreescrita en subclases)
-        // Puedes definir la velocidad de caída y actualizar la posición en "y"
-        area.y -= frecuencia; // Ejemplo básico de movimiento en caída
+        area.y -= frecuencia; 
     }
 
     /**
@@ -52,7 +50,6 @@ public abstract class Profesor implements Recoleccionable {
 
     /**
      * Define el efecto que se aplicará al jugador cuando recoja al profesor.
-     * Este método debe ser implementado en cada subclase para definir el efecto específico.
      * 
      * @param jugador Jugador sobre el cual se aplica el efecto.
      * @param controlador Controlador del juego, que puede gestionar eventos adicionales.
@@ -78,4 +75,5 @@ public abstract class Profesor implements Recoleccionable {
     public Rectangle getArea() {
         return area;
     }
+    public String getNombre(){ return nombre; }
 }

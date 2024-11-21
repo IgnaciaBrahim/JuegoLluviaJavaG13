@@ -20,39 +20,47 @@ public class GameScreen implements Screen {
     private Texture fondoSpriteDia;
     private Music rainMusic;
     
+    // ---- INICIO DE MODIFICACIÓN ----
+    private ControladorJuego controlador;
+    // ---- FIN DE MODIFICACIÓN ----
 
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
-
+    
         // Cargar recursos necesarios
-        this.jugador = new Jugador(5); // Crea un jugador con 3 vidas o el valor deseado
+    
+        // ---- INICIO DE MODIFICACIÓN ----
+        caidaProfes = new CaidaProfesores(
+            new Texture(Gdx.files.internal("fotoAlfaro.png")),
+            new Texture(Gdx.files.internal("fotoCubillos.png")),
+            new Texture(Gdx.files.internal("fotoAraya.png")),
+            new Texture(Gdx.files.internal("fotoDeLaurita.png"))
+        );
+    
+        controlador = new ControladorJuego(jugador, caidaProfes); // Pasamos jugador y caidaProfes al constructor
+        this.jugador = new Jugador(5, controlador); // Crea un jugador con el controlador
+        // ---- FIN DE MODIFICACIÓN ----
+    
         tarro = new Tarro();
-
+    
         // Cargar otras texturas y sonidos
-        Texture profeAlfaro = new Texture(Gdx.files.internal("fotoAlfaro.png"));
-        Texture profeCubillos = new Texture(Gdx.files.internal("fotoCubillos.png"));
-        Texture arayaTexture = new Texture(Gdx.files.internal("fotoAraya.png"));
-        Texture lauritaTexture = new Texture(Gdx.files.internal("fotoDeLaurita.png"));
-        //Sound dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("feed-the-machine-classic-arcade-game-116846.mp3"));
         this.fondoSpriteDia = new Texture(Gdx.files.internal("fondoSpriteDia.jpg"));
-
-        // Crear instancia de Lluvia
-        caidaProfes = new CaidaProfesores(profeAlfaro, profeCubillos, arayaTexture, lauritaTexture);
-
+    
         // Configurar la cámara
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
-
+    
         // Inicializar el tarro y la lluvia
         tarro.crear();
         caidaProfes.crear();
         rainMusic.play();
         rainMusic.setLooping(true);
     }
+    
 
 	@Override
     public void render(float delta) {

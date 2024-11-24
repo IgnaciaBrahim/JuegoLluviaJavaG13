@@ -100,7 +100,7 @@ public class ControladorJuego {
     public void activarCaidaProfesorVillano() {
         int probabilidadVillano = calcularProbabilidadVillano();
         if (MathUtils.random(1, 100) <= probabilidadVillano) {
-            ProfesorVillano villano = (ProfesorVillano) new ProfesorBuilder()
+            ProfesorVillano villano = new ProfesorBuilder<ProfesorVillano>()
                 .setNombre("Cubillos")
                 .setFrecuencia(20)
                 .setProbabilidadAparicion(probabilidadVillano)

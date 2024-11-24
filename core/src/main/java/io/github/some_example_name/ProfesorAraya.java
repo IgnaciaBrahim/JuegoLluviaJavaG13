@@ -13,7 +13,7 @@ public class ProfesorAraya extends Profesor {
 
     // Método estático para construir una instancia usando el Builder
     public static ProfesorAraya crearInstancia() {
-        return (ProfesorAraya) new ProfesorBuilder()
+        return new ProfesorBuilder<ProfesorAraya>()
             .setNombre("Araya")
             .setFrecuencia(15)
             .setProbabilidadAparicion(10)

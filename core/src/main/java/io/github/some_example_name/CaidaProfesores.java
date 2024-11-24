@@ -39,21 +39,8 @@ public class CaidaProfesores {
         this.profesorAraya = profesorAraya;
         this.fotoDeLaurita = fotoDeLaurita; // Inicializa la textura de Laurita
         //this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        this.profeAraya = new ProfesorBuilder<ProfesorAraya>()
-            .setNombre("Araya")
-            .setFrecuencia(15)
-            .setProbabilidadAparicion(10)
-            .setTipoProfesor(ProfesorAraya.class)
-            .setArea(100, 480, 60, 60)
-            .build();
-
-        this.profeLaura = new ProfesorBuilder<ProfesoraLaurita>()
-            .setNombre("Laurita")
-            .setFrecuencia(10)
-            .setProbabilidadAparicion(5)
-            .setTipoProfesor(ProfesoraLaurita.class)
-            .setArea(100, 480, 60, 60)
-            .build();
+        this.profeAraya = new ProfesorAraya();
+        this.profeLaura = new ProfesoraLaurita();
         //Son profesores instanciados para regular sus rachas e inmunidades.
     }
     
@@ -166,7 +153,7 @@ public class CaidaProfesores {
             } 
         }
         return true;
-    }   
+    }
     
     public void actualizarDibujoLluvia(SpriteBatch batch) { 
         for (int i = 0; i < posicionProfesores.size; i++) {

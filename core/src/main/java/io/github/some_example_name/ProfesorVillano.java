@@ -1,9 +1,9 @@
 package io.github.some_example_name;
-import com.badlogic.gdx.math.Rectangle;
+
 public class ProfesorVillano extends Profesor {
 
-    public ProfesorVillano(String nombre, int frecuencia, int probabilidad, Rectangle area) {
-        super(nombre, frecuencia, probabilidad, area);
+    public ProfesorVillano(String nombre, int frecuencia, int probabilidad) {
+        super(nombre, frecuencia, probabilidad);
     }
 
     //unused

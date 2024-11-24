@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
         );
     
         // Usar el Singleton para obtener la instancia de ControladorJuego
-        controlador = ControladorJuego.getInstance(jugador, caidaProfes);
+        controlador = new ControladorJuego(jugador, caidaProfes); // Pasamos jugador y caidaProfes al constructor
         this.jugador = new Jugador(5, controlador); // Crea un jugador con el controlador
         // ---- FIN DE MODIFICACIÓN ----
     

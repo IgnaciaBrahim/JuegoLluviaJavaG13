@@ -1,29 +1,17 @@
 package io.github.some_example_name;
 //import io.github.some_example_name.Jugador;
 
-import com.badlogic.gdx.math.Rectangle;
+//import com.badlogic.gdx.math.Rectangle;
 
 public class ProfesoraLaurita extends Profesor {
 
     private static final int DURACION_INMUNIDAD = 5; // duración en segundos
-    
-    public ProfesoraLaurita(String nombre, int frecuencia, int probabilidad, Rectangle area) {
-        super(nombre, frecuencia, probabilidad, area);
+
+    public ProfesoraLaurita() {
+        super("Laurita", 10, 5); // Frecuencia 10, probabilidad de aparición 5%
+        this.area.set(100, 480, 60, 60); // Posición y tamaño inicial del área de colisión
     }
 
-    
-    // Método estático para construir una instancia usando el Builder
-    public static ProfesoraLaurita crearInstancia() {
-        return new ProfesorBuilder<ProfesoraLaurita>()
-            .setNombre("Laurita")
-            .setFrecuencia(10)
-            .setProbabilidadAparicion(5)
-            .setTipoProfesor(ProfesoraLaurita.class)
-            .setArea(100, 480, 60, 60)
-            .build();
-    }
-
-    
     // Implementación del método abstracto requerido por la interfaz
     //unused
     @Override

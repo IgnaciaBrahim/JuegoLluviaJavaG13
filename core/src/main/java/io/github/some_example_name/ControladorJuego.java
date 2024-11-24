@@ -7,32 +7,21 @@ import java.util.TimerTask;
 import com.badlogic.gdx.math.MathUtils;
 
 public class ControladorJuego {
-    private static ControladorJuego instancia; // Atributo estático para la instancia única
     private List<Profesor> profesoresEnJuego;
     private long tiempoJugado;
     private Jugador jugador;
+
     private CaidaProfesores caidaProfesores;
 
-    // Constructor privado para evitar instanciación directa
-    private ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores) {
-        this.profesoresEnJuego = new ArrayList<>();
-        this.tiempoJugado = 0;
-        this.jugador = jugador;
-        this.caidaProfesores = caidaProfesores; // Asigna la referencia de CaidaProfesores
-        iniciarContadorTiempo();
-    }
+public ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores) {
+    this.profesoresEnJuego = new ArrayList<>();
+    this.tiempoJugado = 0;
+    this.jugador = jugador;
+    this.caidaProfesores = caidaProfesores; // Asigna la referencia de CaidaProfesores
+    iniciarContadorTiempo();
+}
 
-    // Método estático para obtener la instancia única
-    public static ControladorJuego getInstance(Jugador jugador, CaidaProfesores caidaProfesores) {
-        if (instancia == null) {
-            synchronized (ControladorJuego.class) {
-                if (instancia == null) {
-                    instancia = new ControladorJuego(jugador, caidaProfesores);
-                }
-            }
-        }
-        return instancia;
-    }
+    
 
     private void iniciarContadorTiempo() {
         Timer timer = new Timer();
@@ -45,10 +34,12 @@ public class ControladorJuego {
     }
 
     public void agregarProfesor(Profesor profesor) {
-        profesoresEnJuego.add(profesor);
+        profesoresEnJuego.add(profesor); // Añade el profesor a la lista de personajes en el juego
         System.out.println("Profesor " + profesor.getNombre() + " agregado al juego");
-        caidaProfesores.crearGotaDeLluvia(profesor);
+        caidaProfesores.crearGotaDeLluvia(profesor); // Agrega el profesor a CaidaProfesores para dibujarlo
     }
+    
+    
 
     public long getTiempoJugado() {
         return tiempoJugado;
@@ -71,48 +62,33 @@ public class ControladorJuego {
     public void recolectarProfesor(Profesor profesor) {
         profesor.aplicarEfecto(jugador, this);
         profesoresEnJuego.remove(profesor);
-
+    
         if (profesor instanceof ProfesorVillano) {
             System.out.println("Iniciando Tormenta de Cubillos");
-            activarEventoEspecial("TormentaCubillos");
+            activarEventoEspecial("TormentaCubillos"); // Debe llamar al evento especial
         }
     }
-
+    
+    // Nuevo método para activar la tormenta de cubillos a través de Jugador
     public void iniciarTormentaCubillos() {
         EventoTormentaCubillos tormenta = new EventoTormentaCubillos(this, jugador);
-        tormenta.configurarEvento();
+        tormenta.configurarEvento();  // Inicia la configuración y ejecución de la tormenta
     }
 
     public void activarCaidaProfesores() {
         if (MathUtils.random(1, 100) <= 10) {
-            agregarProfesor(
-                new ProfesorBuilder<ProfesorAraya>()
-                    .setNombre("Araya")
-                    .setFrecuencia(15)
-                    .setProbabilidadAparicion(10)
-                    .setTipoProfesor(ProfesorAraya.class)
-                    .setArea(100, 480, 60, 60)
-                    .build()
-            );
-        }
+            agregarProfesor(new ProfesorAraya());
+        }    
     }
 
     public void activarCaidaProfesorVillano() {
         int probabilidadVillano = calcularProbabilidadVillano();
-        if (MathUtils.random(1, 100) <= probabilidadVillano) {
-            ProfesorVillano villano = new ProfesorBuilder<ProfesorVillano>()
-                .setNombre("Cubillos")
-                .setFrecuencia(20)
-                .setProbabilidadAparicion(probabilidadVillano)
-                .setTipoProfesor(ProfesorVillano.class)
-                .setArea(100, 480, 60, 60) // Coordenadas y tamaño
-                .build();
-    
-            agregarProfesor(villano);
+        if (MathUtils.random(1, 100) <= probabilidadVillano) { 
+            agregarProfesor(new ProfesorVillano("Cubillos", 20, probabilidadVillano));
         }
     }
 
     private int calcularProbabilidadVillano() {
-        return Math.min(10 + (int) (tiempoJugado / 30), 50);
+        return Math.min(10 + (int)(tiempoJugado / 30), 50);
     }
 }

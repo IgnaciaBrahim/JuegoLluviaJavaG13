@@ -1,10 +1,13 @@
 package io.github.some_example_name;
 
+import com.badlogic.gdx.math.Rectangle;
+
 public class ProfesorPowerUp extends Profesor {
     private String tipoPowerUp;
 
-    public ProfesorPowerUp(String nombre, int frecuencia, int probabilidad, String tipoPowerUp) {
-        super(nombre, frecuencia, probabilidad);
+    // Modificación: Se debe pasar un área (Rectangle) además de los otros parámetros
+    public ProfesorPowerUp(String nombre, int frecuencia, int probabilidad, String tipoPowerUp, Rectangle area) {
+        super(nombre, frecuencia, probabilidad, area); // Llamada al constructor de Profesor
         this.tipoPowerUp = tipoPowerUp;
     }
     

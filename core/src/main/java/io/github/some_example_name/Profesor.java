@@ -6,41 +6,43 @@ public abstract class Profesor implements Recoleccionable {
     protected String nombre;
     protected int frecuencia;
     protected int probabilidadAparicion;
-    protected Rectangle area;  
+    protected Rectangle area;
 
     /**
-     * Constructor para la clase Profesor.
+     * Constructor protegido, solo accesible desde el Builder.
      * 
      * @param nombre Nombre del profesor.
-     * @param frecuencia Frecuencia de aparición.
-     * @param probabilidad Probabilidad de aparición en el juego.
+     * @param frecuencia Frecuencia de caída.
+     * @param probabilidadAparicion Probabilidad de aparición en el juego.
+     * @param area Área de colisión del profesor.
      */
-    public Profesor(String nombre, int frecuencia, int probabilidad) {
+    protected Profesor(String nombre, int frecuencia, int probabilidadAparicion, Rectangle area) {
         this.nombre = nombre;
         this.frecuencia = frecuencia;
-        this.probabilidadAparicion = probabilidad;
-        this.area = new Rectangle();  
-    }
-    
-    @Override
-    public void caer() {
-        area.y -= frecuencia; 
+        this.probabilidadAparicion = probabilidadAparicion;
+        this.area = area;
     }
 
     /**
-     * Verifica si el profesor ha sido recolectado por el tarro del jugador.
+     * Devuelve el nombre del profesor.
      * 
-     * @param tarro Tarro del jugador con el que se verifica la colisión.
-     * @return true si el área del profesor se superpone con el área del tarro, false en caso contrario.
+     * @return Nombre del profesor.
      */
-    @Override
-    //El profesor puede saber si ha sido recolatado por el tarro o viceversa.
-    public boolean haSidoRecolectado(Tarro tarro) {
-        return tarro.getArea().overlaps(area);
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * Devuelve la probabilidad de aparición del profesor en el juego.
+     * Devuelve la frecuencia de caída del profesor.
+     * 
+     * @return Frecuencia de caída.
+     */
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+
+    /**
+     * Devuelve la probabilidad de aparición del profesor.
      * 
      * @return Probabilidad de aparición.
      */
@@ -49,16 +51,16 @@ public abstract class Profesor implements Recoleccionable {
     }
 
     /**
-     * Define el efecto que se aplicará al jugador cuando recoja al profesor.
+     * Devuelve el área de colisión del profesor.
      * 
-     * @param jugador Jugador sobre el cual se aplica el efecto.
-     * @param controlador Controlador del juego, que puede gestionar eventos adicionales.
+     * @return Área de colisión.
      */
-    public abstract void aplicarEfecto(Jugador jugador, ControladorJuego controlador);
+    public Rectangle getArea() {
+        return area;
+    }
 
     /**
-     * Permite actualizar la posición del área de colisión del profesor.
-     * Este método es útil para mover la posición del profesor en el juego.
+     * Actualiza la posición del profesor.
      * 
      * @param x Nueva posición en X.
      * @param y Nueva posición en Y.
@@ -68,12 +70,30 @@ public abstract class Profesor implements Recoleccionable {
     }
 
     /**
-     * Devuelve el área de colisión del profesor para verificaciones adicionales en otras clases si es necesario.
+     * Define el efecto que se aplicará al jugador cuando recoja al profesor.
+     * Este método será implementado en las subclases.
      * 
-     * @return Área de colisión del profesor.
+     * @param jugador Jugador sobre el cual se aplica el efecto.
+     * @param controlador Controlador del juego, para manejar eventos adicionales.
      */
-    public Rectangle getArea() {
-        return area;
+    public abstract void aplicarEfecto(Jugador jugador, ControladorJuego controlador);
+
+    /**
+     * Verifica si el profesor ha sido recolectado por el tarro del jugador.
+     * 
+     * @param tarro Tarro del jugador con el que se verifica la colisión.
+     * @return true si el área del profesor se superpone con el área del tarro, false en caso contrario.
+     */
+    @Override
+    public boolean haSidoRecolectado(Tarro tarro) {
+        return tarro.getArea().overlaps(area);
     }
-    public String getNombre(){ return nombre; }
+
+    /**
+     * Simula la caída del profesor actualizando su posición vertical.
+     */
+    @Override
+    public void caer() {
+        area.y -= frecuencia;
+    }
 }

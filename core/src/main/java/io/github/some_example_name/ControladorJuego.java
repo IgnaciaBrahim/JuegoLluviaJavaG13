@@ -7,31 +7,38 @@ import java.util.TimerTask;
 import com.badlogic.gdx.math.MathUtils;
 
 public class ControladorJuego {
-    private static ControladorJuego instancia; // Atributo estático para la instancia única
+    private static ControladorJuego instancia; // Singleton
     private List<Profesor> profesoresEnJuego;
     private long tiempoJugado;
     private Jugador jugador;
     private CaidaProfesores caidaProfesores;
+    private FabricaProfesor fabricaProfesor; // Nueva dependencia
 
-    // Constructor privado para evitar instanciación directa
-    private ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores) {
+    // Constructor privado
+    private ControladorJuego(Jugador jugador, CaidaProfesores caidaProfesores, FabricaProfesor fabricaProfesor) {
         this.profesoresEnJuego = new ArrayList<>();
         this.tiempoJugado = 0;
         this.jugador = jugador;
-        this.caidaProfesores = caidaProfesores; // Asigna la referencia de CaidaProfesores
+        this.caidaProfesores = caidaProfesores;
+        this.fabricaProfesor = fabricaProfesor; // Inicialización de la fábrica
         iniciarContadorTiempo();
     }
 
     // Método estático para obtener la instancia única
-    public static ControladorJuego getInstance(Jugador jugador, CaidaProfesores caidaProfesores) {
+    public static ControladorJuego getInstance(Jugador jugador, CaidaProfesores caidaProfesores, FabricaProfesor fabricaProfesor) {
         if (instancia == null) {
             synchronized (ControladorJuego.class) {
                 if (instancia == null) {
-                    instancia = new ControladorJuego(jugador, caidaProfesores);
+                    instancia = new ControladorJuego(jugador, caidaProfesores, fabricaProfesor);
                 }
             }
         }
         return instancia;
+    }
+
+    public void iniciarTormentaCubillos() {
+        EventoTormentaCubillos tormenta = new EventoTormentaCubillos(this, jugador);
+        tormenta.configurarEvento();
     }
 
     private void iniciarContadorTiempo() {
@@ -78,14 +85,9 @@ public class ControladorJuego {
         }
     }
 
-    public void iniciarTormentaCubillos() {
-        EventoTormentaCubillos tormenta = new EventoTormentaCubillos(this, jugador);
-        tormenta.configurarEvento();
-    }
-
     public void activarCaidaProfesores() {
         if (MathUtils.random(1, 100) <= 10) {
-            agregarProfesor(new ProfesorAraya());
+            agregarProfesor(fabricaProfesor.crearAraya());
         }
     }
 

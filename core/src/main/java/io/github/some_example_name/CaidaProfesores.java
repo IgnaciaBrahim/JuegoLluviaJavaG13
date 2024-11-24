@@ -25,6 +25,7 @@ public class CaidaProfesores {
     private EstrategiaProfesor estrategiaProfesor;
     private ProfesorAraya profeAraya;
     private ProfesoraLaurita profeLaura;
+    private FabricaProfesor fabricaProfesor; 
     
     
     //El profesor sabe que sonido hace en el juego
@@ -33,7 +34,7 @@ public class CaidaProfesores {
     //private Music rainMusic;
 
     // Constructor modificado
-    public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Texture fotoDeLaurita) {
+    public CaidaProfesores(Texture profesorAlfaro, Texture profesorCubillos, Texture profesorAraya, Texture fotoDeLaurita, FabricaProfesor fabricaProfesor) {
         this.profesorAlfaro = profesorAlfaro;
         this.profesorCubillos = profesorCubillos;
         this.profesorAraya = profesorAraya;
@@ -41,6 +42,7 @@ public class CaidaProfesores {
         //this.rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         this.profeAraya = new ProfesorAraya();
         this.profeLaura = new ProfesoraLaurita();
+        this.fabricaProfesor = fabricaProfesor;
         //Son profesores instanciados para regular sus rachas e inmunidades.
     }
     
@@ -74,25 +76,26 @@ public class CaidaProfesores {
 
 
     private void crearGotaDeLluvia() {
+        Profesor profesor = fabricaProfesor.crearAleatorio(); // Uso de la fábrica
         Rectangle profe = new Rectangle();
         profe.x = MathUtils.random(0, 800 - 64);
         profe.y = 480;
 
-        int tipo = MathUtils.random(1, 100);
-        if (tipo <= 5) { // 2% de probabilidad para Laurita
-            tipoProfesores.add(4); // Identificador para Laurita
-            profe.width = 60;
-            profe.height = 60;
-        } else if (tipo <= 15) { // Araya, 15% probabilidad
-            tipoProfesores.add(3);
-            profe.width = 70;
-            profe.height = 70;
-        } else if (tipo <= 30) { // Cubillos
-            tipoProfesores.add(1);
+        // Asignar dimensiones y agregar el tipo de profesor
+        if (profesor instanceof ProfesorVillano) {
+            tipoProfesores.add(1); // Villano (Cubillos)
             profe.width = 50;
             profe.height = 50;
-        } else { // Alfaro
-            tipoProfesores.add(2);
+        } else if (profesor instanceof ProfesorAraya) {
+            tipoProfesores.add(3); // Araya
+            profe.width = 70;
+            profe.height = 70;
+        } else if (profesor instanceof ProfesoraLaurita) {
+            tipoProfesores.add(4); // Laurita
+            profe.width = 60;
+            profe.height = 60;
+        } else { // Alfaro 
+            tipoProfesores.add(2); // Alfaro
             profe.width = 60;
             profe.height = 60;
         }

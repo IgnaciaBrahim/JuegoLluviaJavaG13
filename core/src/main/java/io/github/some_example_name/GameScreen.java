@@ -22,13 +22,14 @@ public class GameScreen implements Screen {
     
     // ---- INICIO DE MODIFICACIÓN ----
     private ControladorJuego controlador;
+    private FabricaProfesor fabricaProfesor;
     // ---- FIN DE MODIFICACIÓN ----
 
     public GameScreen(final GameLluviaMenu game) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
-    
+        this.fabricaProfesor = new FabricaProfesorConcreta();
         // Cargar recursos necesarios
     
         // ---- INICIO DE MODIFICACIÓN ----
@@ -36,11 +37,12 @@ public class GameScreen implements Screen {
             new Texture(Gdx.files.internal("fotoAlfaro.png")),
             new Texture(Gdx.files.internal("fotoCubillos.png")),
             new Texture(Gdx.files.internal("fotoAraya.png")),
-            new Texture(Gdx.files.internal("fotoDeLaurita.png"))
+            new Texture(Gdx.files.internal("fotoDeLaurita.png")),
+            fabricaProfesor
         );
     
         // Usar el Singleton para obtener la instancia de ControladorJuego
-        controlador = ControladorJuego.getInstance(jugador, caidaProfes);
+        controlador = ControladorJuego.getInstance(jugador, caidaProfes, fabricaProfesor);
         this.jugador = new Jugador(5, controlador); // Crea un jugador con el controlador
         // ---- FIN DE MODIFICACIÓN ----
     

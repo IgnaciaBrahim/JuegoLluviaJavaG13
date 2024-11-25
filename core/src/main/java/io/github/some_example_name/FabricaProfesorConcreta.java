@@ -34,7 +34,7 @@ public class FabricaProfesorConcreta implements FabricaProfesor {
         int tipo = MathUtils.random(1, 100); // Probabilidad del tipo de profesor
         if (tipo <= 10) { // Laurita: 5%
             return new ProfesoraLaurita();
-        } else if (tipo <= 20) { // Araya: 15%
+        } else if (tipo <= 50) { // Araya: 15%
             return new ProfesorAraya();
         } else if (tipo <= 60) { // Alfaro: 30%
             return new ProfesorAlfaro();

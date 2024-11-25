@@ -1,5 +1,4 @@
 package io.github.some_example_name;
-import io.github.some_example_name.EstrategiaProfesor;
 import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,10 +7,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import io.github.some_example_name.EstrategiaArayaMalo;
-import io.github.some_example_name.EstrategiaArayaBueno;
-import io.github.some_example_name.EstrategiaAlfaro;
-import io.github.some_example_name.EstrategiaLaurita;
 
 //Modela la forma en la que caen los profesores
 public class CaidaProfesores {
@@ -49,7 +44,7 @@ public class CaidaProfesores {
     
     //Para aplicar patron strategy a la forma en la que los profes afectan a los 
     //jugadores o al tarro :)
-    private void setearEstrategia(int tipo, boolean rachaAraya) {
+    private void setearEstrategia(int tipo, boolean racha) {
         switch (tipo) {
             case 1: 
             	this.estrategiaProfesor = new EstrategiaCubillos();
@@ -58,7 +53,7 @@ public class CaidaProfesores {
             	this.estrategiaProfesor = new EstrategiaAlfaro();
             	break;
             case 3:
-            	if (rachaAraya)
+            	if (racha)
             	{
             		this.estrategiaProfesor = new EstrategiaArayaMalo();
             	}
@@ -142,18 +137,34 @@ public class CaidaProfesores {
             
             //Patrón Strategy: Cómo el profesor afecta al tarro y al jugador
             //Depende de qué profesor es.
-            if (tarro.sobreponer(profe)) { 
-            	boolean rachaProfesorAraya = profeAraya.obtenerRacha();
+            if (tarro.sobreponer(profe)) {
             	int tipoProfesor = tipoProfesores.get(i);
+                // Incrementar racha antes de evaluar
+            	if (tipoProfesor == 3)
+            	{
+            		profeAraya.incrementarRacha();
+            	}
+
+                // Verificar racha antes de configurar estrategia
+                boolean rachaProfesorAraya = profeAraya.obtenerRacha();
+                // Configurar estrategia basada en el estado actualizado de racha
                 setearEstrategia(tipoProfesor, rachaProfesorAraya);
+
+                // Aplicar efecto de la estrategia
                 estrategiaProfesor.efectoProfesor(jugador, tarro, profeAraya, profeLaura);
-                if (jugador.getVida() == 0)
-                {
-                	return false;
+
+                // Reiniciar racha si alcanzó el límite dentro de la estrategia
+                if (profeAraya.obtenerRacha()) {
+                    profeAraya.reiniciarRacha();
                 }
+
+                if (jugador.getVida() == 0) {
+                    return false;
+                }
+
                 posicionProfesores.removeIndex(i);
                 tipoProfesores.removeIndex(i);
-            } 
+            }
         }
         return true;
     }

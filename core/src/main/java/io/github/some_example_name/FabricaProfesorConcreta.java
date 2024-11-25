@@ -32,13 +32,13 @@ public class FabricaProfesorConcreta implements FabricaProfesor {
     @Override
     public Profesor crearAleatorio() {
         int tipo = MathUtils.random(1, 100); // Probabilidad del tipo de profesor
-        if (tipo <= 10) { // Laurita: 5%
+        if (tipo <= 5) { // Laurita: 5%
             return new ProfesoraLaurita();
-        } else if (tipo <= 50) { // Araya: 15%
+        } else if (tipo <= 20) { // Araya: 15%
             return new ProfesorAraya();
-        } else if (tipo <= 60) { // Alfaro: 30%
+        } else if (tipo <= 70) { // Alfaro: 50%
             return new ProfesorAlfaro();
-        } else { // Cubillos: 50%
+        } else { // Cubillos: otro%
             return new ProfesorVillano("Villano Cubillos", 15, 30);
         }
 }

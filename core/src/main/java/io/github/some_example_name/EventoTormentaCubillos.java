@@ -25,7 +25,7 @@ public class EventoTormentaCubillos extends EventoJuego {
             @Override
             public void run() {
                 if (contador < 10 + controlador.getTiempoJugado() / 60) {
-                    System.out.println("Aparece un Cubillos"); // Confirmación
+                    //System.out.println("Aparece un Cubillos"); // Confirmación
                     controlador.agregarProfesor(new ProfesorVillano("Cubillos", 20, 50));
                     contador++;
                 } else {

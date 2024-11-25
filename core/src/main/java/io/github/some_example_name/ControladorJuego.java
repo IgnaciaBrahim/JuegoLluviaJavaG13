@@ -53,7 +53,7 @@ public class ControladorJuego {
 
     public void agregarProfesor(Profesor profesor) {
         profesoresEnJuego.add(profesor);
-        System.out.println("Profesor " + profesor.getNombre() + " agregado al juego");
+        //System.out.println("Profesor " + profesor.getNombre() + " agregado al juego");
         caidaProfesores.crearGotaDeLluvia(profesor);
     }
 
